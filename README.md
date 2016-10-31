@@ -19,7 +19,7 @@ ion-alpha-scroll
 
 1. Use bower to install the new module:
 ```bash
-bower install ion-alpha-scroll --save
+bower install https://github.com/panlina/ion-alpha-scroll.git --save
 ```
 2. Import the `ion-alpha-scroll` javascript and css file into your HTML file:
 ```html
@@ -52,6 +52,14 @@ To display the properties of each item in the model, you can use the 'item' obje
 	  <div>Name: {{item.name}}</div>
 	  <div>Address: {{item.address}}</div>
 	</ion-alpha-scroll>
+```
+
+Add `delegate-handle` to `ion-content` or whatever container you place your `ion-alpha-scroll` in, and add `alpha-bar` outside `ion-content` and specify `delegate-handle` to associate them.
+```html
+	<ion-content delegate-handle=content>
+		..
+	</ion-content>
+	<alpha-bar delegate-handle=content></alpha-bar>
 ```
 
 Heres a quick example:
@@ -129,12 +137,13 @@ angular.module('example.controllers', [])
 contacts-list.html
 ```html
 <ion-view view-title="Contacts">
-  <ion-content>
+  <ion-content delegate-handle=content>
     <ion-alpha-scroll ng-model="contacts" key="name">
       <div>{{item.name}}</div>
       <div>{{item.description}}</div>
     </ion-alpha-scroll>
   </ion-content>
+  <alpha-bar delegate-handle=content></alpha-bar>
 </ion-view>
 ```
 
