@@ -28,7 +28,6 @@ angular.module('ion-alpha-scroll', [])
 	                ngModel.$render = function(){
 						scope.items = [];                	
 	                	scope.items = ngModel.$viewValue;
-	                	scope.alphabet = iterateAlphabet();
 		                var tmp={};
 			            for(i=0;i<scope.items.length;i++){
 			              var letter=scope.items[i][attrs.key].toUpperCase().charAt(0);
@@ -38,35 +37,6 @@ angular.module('ion-alpha-scroll', [])
 			              tmp[ letter].push( scope.items[i] );
 			            }
 			            scope.sorted_items = tmp;
-
-			            scope.alphaScrollGoToList = function(id){
-				          $location.hash(id);
-				          $ionicScrollDelegate.$getByHandle('alphaScroll').anchorScroll();
-				        }
-
-				        //Create alphabet object
-				        function iterateAlphabet()
-				        {
-				           var str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-				           var numbers = new Array();
-				           for(var i=0; i<str.length; i++)
-				           {
-				              var nextChar = str.charAt(i);
-				              numbers.push(nextChar);
-				           }
-				           return numbers;
-				        }
-				        scope.groups = [];
-				        for (var i=0; i<10; i++) {
-				          scope.groups[i] = {
-				            name: i,
-				            items: []
-				          };
-				          for (var j=0; j<3; j++) {
-				            scope.groups[i].items.push(i + '-' + j);
-				          }
-				        }
-
 	                };
 
 	            }
