@@ -10,9 +10,9 @@ angular.module('ion-alpha-scroll', [])
 				var children = tElement.contents();
 				var template = angular.element([
 					'<ion-list class="ion_alpha_list_outer">',
-						'<div data-ng-repeat="(letter, items) in sorted_items" class="ion_alpha_list">',
-							'<ion-item class="item item-divider" id="index_{{letter}}">{{letter}}</ion-item>',
-							'<ion-item ng-repeat="item in items"></ion-item>',
+						'<div data-ng-repeat="group in sorted_items" class="ion_alpha_list">',
+							'<ion-item class="item item-divider" id="index_{{group.key}}">{{group.key}}</ion-item>',
+							'<ion-item ng-repeat="item in group.value"></ion-item>',
 						'</div>',
 					'</ion-list>'
 					].join(''));
@@ -36,7 +36,16 @@ angular.module('ion-alpha-scroll', [])
 			            }
 			              tmp[ letter].push( scope.items[i] );
 			            }
-			            scope.sorted_items = tmp;
+			            var sorted = [];
+			            var keys = Object.keys(tmp);
+			            for (var i in keys) {
+			            	var key = keys[i];
+			            	sorted[i] = { key: key, value: tmp[key] };
+			            }
+			            sorted.sort(function (k, j) {
+			            	return k.key < j.key ? -1 : k.key > j.key ? 1 : 0;
+			            });
+			            scope.sorted_items = sorted;
 	                };
 
 	            }
